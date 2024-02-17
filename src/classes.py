@@ -34,10 +34,45 @@ class Record:
         else:
             raise ValueError
 
+        def add_phone(self, number):
+        for phone in self.phones:
+            if phone.value == number:
+                raise ValueError
+        else:
+            new_phone = Phone(number)
+            self.phones.append(new_phone)
+
+    def remove_phone(self, number):
+        for phone in self.phones:
+            if phone.value == number:
+                self.phones.remove(phone)
+
+    def edit_phone(self, old_number, new_number):
+        for phone in self.phones:
+            if phone.value == old_number:
+                new_phone = Phone(new_number)
+                target_index = self.phones.index(phone)
+                self.phones[target_index] = new_phone
+                return new_phone
+        else:
+            raise ValueError
+
+    def find_phone(self, number):
+        for phone in self.phones:
+            if phone.value == number:
+                return phone
+        else:
+            return None
+
+    def __str__(self):
+        return (f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)},"
+                f" birthday: {self.birthday.value}")
+
+
 
 class AddressBook(UserDict):
 
-    def add_record(self, record: Record):
+    def add_contact(self, record: Record):
         if record.name.value not in self.data:
             self.data[record.name.value] = record
         else:
