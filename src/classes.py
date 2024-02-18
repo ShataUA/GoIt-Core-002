@@ -107,8 +107,13 @@ class Birthday(Field):
 
     @staticmethod
     def is_valid(value):
-        if value is None or datetime.strptime(value, '%d-%m-%Y').date():
+        if value is None:
             return True
+        try:
+            datetime.strptime(value, '%d-%m-%Y')
+            return True
+        except ValueError:
+            return False
 
     @property
     def value(self):
@@ -153,9 +158,7 @@ class Record:
 
     @property
     def days_to_birthday(self):
-        if self.birthday is None:
-            raise AttributeError
-        else:
+        if self.birthday.value and self.birthday.value is not None:
             current_date = date.today()
             current_year = current_date.year
             user_date = self.birthday.value.replace(year=current_year)
@@ -225,6 +228,7 @@ class AddressBook(UserDict):
                 birthday_people.append(record.name.value)
         return birthday_people
 
+
     def find_info(self, info: str):
         # find users whose name or phone number matches the entered info
         request = []
@@ -270,3 +274,14 @@ class AddressBook(UserDict):
         with open(filename, 'rb') as fh:
             return pickle.load(fh)
 
+# book =AddressBook()
+# a = Record('a', '20-02-1989')
+# b = Record('b', '20-02-1987')
+# c = Record('c', '13-05-1989')
+#
+#
+# book.add_contact(a)
+# book.add_contact(b)
+# book.add_contact(c)
+#
+# print(book.birthday_in(2))
