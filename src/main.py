@@ -33,7 +33,6 @@ def input_error(func):
             return Error
         except AttributeError as Error:
             return Error
-
     return inner
 
 
@@ -50,13 +49,13 @@ def add_contact(contact):
         else:
             if len(contact) == 1:
                 username_record = Record(name)
-                phone_book.add_record(username_record)
+                phone_book.add_contact(username_record)
                 return f'Contact {name} has been added to the phone book'
             else:
                 try:
                     birthday = contact[1]
                     username_record = Record(name, birthday)
-                    phone_book.add_record(username_record)
+                    phone_book.add_contact(username_record)
                     return f'Contact {name} with birthday {birthday} has been added to the phone book'
                 except ValueError:
                     raise ValueError('Invalid data format')
@@ -181,9 +180,9 @@ def find_info(info):
 
 
 def show_all():
-    for key in phone_book.keys():
-        print(phone_book[key])
-
+    if not phone_book.data:
+        return "No users available"
+    return "\n".join(str(record) for record in phone_book.data.values())
 
 @input_error
 def show(contact):
