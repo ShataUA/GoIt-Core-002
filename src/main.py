@@ -197,6 +197,32 @@ def show(contact):
             if elem:
                 print(elem)
 
+@input_error
+def add_birth(contact):
+    if not contact:
+        raise ValueError("Enter username and birthday please")
+    else:
+        name = contact[0].capitalize()
+        if phone_book.get(name) is None:
+            raise KeyError("No such user in phone book")
+        elif len(contact) == 1:
+            raise IndexError("Enter birthday please")
+        else:
+            try:
+                birthday = contact[1]
+                phone_book.get(name).add_birthday(birthday)
+                return f'Birthday {birthday} has been added to contact {name}'
+            except ValueError:
+                raise ValueError("Invalid birthday")
+
+
+@input_error
+def birthday_in(contact):
+    if not contact:
+        raise ValueError("Enter the number of days")
+    number = int(contact[0])
+    list_of_birthday_contacts = phone_book.birthday_in_a_given_number_of_days(number)
+    return f'{','.join(birthday for birthday in list_of_birthday_contacts)} birthday is in {number} days'
 
 
 def final():
@@ -211,7 +237,7 @@ command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": gree
 
 command_dict2 = dict(add_contact=add_contact, add_phone=add_phone, remove_phone=remove_phone, find_phone=find_phone,
                      edit_phone=edit_phone, days=days_to_birthday, find_user=find_user, delete_user=delete_user,
-                     find_info=find_info, show=show)
+                     find_info=find_info, show=show, add_birthday=add_birth, birthday_in=birthday_in)
 
 
 def get_handler1(x):
