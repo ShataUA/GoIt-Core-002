@@ -197,19 +197,17 @@ class Record:
                 target_index = self.phones.index(phone)
                 self.phones[target_index] = new_phone
                 return new_phone
-        else:
-            raise ValueError
+        raise ValueError
 
     def find_phone(self, number):
         for phone in self.phones:
             if phone.value == number:
                 return phone
-        else:
-            return None
+        return None
 
     def __str__(self):
         return (f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)},"
-                f" birthday: {self.birthday.value}")
+                f" birthday: {self.birthday.value}, email: {self.email.value}, address: {self.address.value}")
 
 
 class AddressBook(UserDict):
