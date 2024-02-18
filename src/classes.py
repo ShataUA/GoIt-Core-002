@@ -49,6 +49,7 @@ class FirstName(Field):
         if not self.is_valid(value):
             raise ValueError
 
+
 class SecondName(Field):
     def __init__(self, value):
         super().__init__(value)
@@ -69,6 +70,7 @@ class SecondName(Field):
         self.__value = value if (self.is_valid(value) and value is not None) else None
         if not self.is_valid(value):
             raise ValueError
+
 
 class Address(Field):
     def __init__(self, value):
@@ -132,10 +134,12 @@ class Email(Field):
         
 
 class Record:
-    def __init__(self, name, birthday=None):
+    def __init__(self, name, birthday=None, address=None, email=None):
         self.name = FirstName(name)
         self.phones = []
         self.birthday = Birthday(birthday)
+        self.email = Email(email)
+        self.address = Address(address)
 
     @property
     def days_to_birthday(self):
@@ -154,6 +158,12 @@ class Record:
                 user_date = self.birthday.value.replace(year=current_year + 1)
                 delta = user_date.toordinal() - current_date.toordinal()
                 return f'{delta} days left until your birthday'
+
+    def add_birthday(self, birthday):
+        if self.birthday is None:
+            self.birthday = Birthday(birthday)
+        else:
+            raise ValueError
 
     def add_phone(self, number):
         for phone in self.phones:
@@ -192,11 +202,18 @@ class Record:
 
 class AddressBook(UserDict):
 
-    def add_record(self, record: Record):
+    def add_contact(self, record: Record):
         if record.name.value not in self.data:
             self.data[record.name.value] = record
         else:
             raise ValueError
+
+    def birthday_in_a_given_number_of_days(self, number):
+        birthday_people = []
+        for record in self.data.values():
+            if number in record.days_to_birthday:
+                birthday_people.append(record.name.value)
+        return birthday_people
 
     def find_info(self, info: str):
         # find users whose name or phone number matches the entered info
@@ -242,3 +259,4 @@ class AddressBook(UserDict):
     def read_from_file(self, filename):
         with open(filename, 'rb') as fh:
             return pickle.load(fh)
+
