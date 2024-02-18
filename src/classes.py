@@ -75,6 +75,16 @@ class SecondName(Field):
 class Address(Field):
     def __init__(self, value):
         super().__init__(value)
+        self.__value = None
+        self.value = value
+
+    @property
+    def value(self):
+        return self.__value
+
+    @value.setter
+    def value(self, value):
+        self.__value = value
 
 
 class Phone(Field):
@@ -151,19 +161,21 @@ class Record:
             user_date = self.birthday.value.replace(year=current_year)
             delta = user_date.toordinal() - current_date.toordinal()
             if delta == 0:
-                return f'Today is your birthday! Congratulations!'
+                return 0
             elif delta > 0:
-                return f'{delta} days left until your birthday'
+                return delta
             else:
                 user_date = self.birthday.value.replace(year=current_year + 1)
                 delta = user_date.toordinal() - current_date.toordinal()
-                return f'{delta} days left until your birthday'
+                return delta
 
     def add_birthday(self, birthday):
-        if self.birthday is None:
+        if self.birthday.value is None:
             self.birthday = Birthday(birthday)
         else:
             raise ValueError
+
+
 
     def add_phone(self, number):
         for phone in self.phones:
@@ -211,7 +223,7 @@ class AddressBook(UserDict):
     def birthday_in_a_given_number_of_days(self, number):
         birthday_people = []
         for record in self.data.values():
-            if number in record.days_to_birthday:
+            if number == record.days_to_birthday:
                 birthday_people.append(record.name.value)
         return birthday_people
 
