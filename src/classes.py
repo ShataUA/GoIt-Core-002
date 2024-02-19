@@ -207,6 +207,34 @@ class Record:
             if phone.value == number:
                 return phone
         return None
+    
+    def add_email(self, email):
+        return self.email
+
+    def edit_email(self, email, new_email):
+        Email(new_email)
+        if self.email == email:
+            self.email = new_email
+        raise ValueError
+    
+    def find_email(self, email):    
+        if self.email == email:
+            return self.email
+        return None
+
+    def add_address(self, address):
+        return self.address
+
+    def edit_address(self, address, new_address):
+        Address(new_address)
+        if self.address == address:
+            self.address = new_address
+        raise ValueError
+    
+    def find_address(self, address):
+        if self.address == address:
+            return self.address
+        return None
 
     def __str__(self):
         return (f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)},"
