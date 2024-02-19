@@ -1,4 +1,7 @@
 from classes import Record, AddressBook
+from colorama import *
+
+init(autoreset=True)
 
 phone_book = AddressBook()
 
@@ -33,6 +36,7 @@ def input_error(func):
             return Error
         except AttributeError as Error:
             return Error
+
     return inner
 
 
@@ -182,7 +186,8 @@ def find_info(info):
 def show_all():
     if not phone_book.data:
         return "No users available"
-    return "\n".join(str(record) for record in phone_book.data.values())
+    return Fore.CYAN + "\n".join(str(record) for record in phone_book.data.values())
+
 
 @input_error
 def show(contact):
@@ -198,13 +203,12 @@ def show(contact):
                 print(elem)
 
 
-
 def final():
     return 'Good bye!'
 
 
 def greeting():
-    return instruction
+    return Fore.YELLOW + instruction
 
 
 command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": greeting, "show all": show_all}
