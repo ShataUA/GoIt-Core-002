@@ -32,7 +32,7 @@ instruction = ("Hello, I am a bot assistant for work with the phone book. \n"
                "'edit_address name address' - if you want to edit address.\n"
                "'add_email name email' - if you want to add an email to the contact.\n"
                "'remove_email name email' - if you want to remove an email from the contact.\n"
-               "'edit_email name old_email new_email' - if you want to edit an email.\n")
+               "'edit_email name old_email new_email' - if you want to edit an email.\n"
                "'birthday_in number' - if you want to see users which have birthday in number days.\n"
                "'file_sort path' - if you want to sort some directory (enter path to the directory).\n"
                "'add_note' - if you want to create a new note.\n"
@@ -476,7 +476,7 @@ command_dict2 = dict(add_contact=add_contact, add_phone=add_phone, remove_phone=
                      edit_secondname=edit_secondname, file_sorter=file_sort, add_note=add_note, edit_note=edit_note,
                      delete_note_by_idx=delete_note_by_index, delete_note_by_title=delete_note_by_title,
                      search_note_by_tag=search_note_by_tag, sort_notes_by_tag=sort_notes_by_tag,
-                     search_note_by=search_note_by, notes_show_all=note_show_all, add_address=add_address,
+                     search_note_by=search_note_by, notes_show_all=notes_show_all, add_address=add_address,
                      edit_address = edit_address, remove_address=remove_address, add_email=add_email,
                      edit_email = edit_email, remove_email=remove_email)
 
