@@ -189,16 +189,16 @@ class FileSorter:
         return valid, comment
 
 
-if __name__ == '__main__':
-
-    file_sorter = FileSorter('')
-    ok, msg = file_sorter.execute_sort()
-    print(f'ok: {ok}\nmsg: {msg}\n{"-"*10}')
-
-    file_sorter = FileSorter('not_exist_folder')
-    ok, msg = file_sorter.execute_sort()
-    print(f'ok: {ok}\nmsg: {msg}\n{"-"*10}')
-
-    file_sorter = FileSorter('test_dir_files')
-    ok, msg = file_sorter.execute_sort()
-    print(f'ok: {ok}\nmsg: {msg}\n{"-"*10}')
+# if __name__ == '__main__':
+#
+#     file_sorter = FileSorter('')
+#     ok, msg = file_sorter.execute_sort()
+#     print(f'ok: {ok}\nmsg: {msg}\n{"-"*10}')
+#
+#     file_sorter = FileSorter('not_exist_folder')
+#     ok, msg = file_sorter.execute_sort()
+#     print(f'ok: {ok}\nmsg: {msg}\n{"-"*10}')
+#
+#     file_sorter = FileSorter('test_dir_files')
+#     ok, msg = file_sorter.execute_sort()
+#     print(f'ok: {ok}\nmsg: {msg}\n{"-"*10}')

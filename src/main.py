@@ -1,5 +1,6 @@
 from classes import Record, AddressBook
 from colorama import *
+from file_sorter import FileSorter
 
 init(autoreset=True)
 
@@ -269,6 +270,15 @@ def edit_secondname(contact):
                 raise ValueError("Invalid secondname")
 
 
+def file_sort(contact):
+    if not contact:
+        raise ValueError("Enter directory path")
+    else:
+        name = ' '.join(i for i in contact)
+        file_sorter = FileSorter(name)
+        ok, msg = file_sorter.execute_sort()
+        return f'ok: {ok}\nmsg: {msg}\n{"-" * 10}'
+
 
 def final():
     return 'Good bye!'
@@ -283,7 +293,7 @@ command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": gree
 command_dict2 = dict(add_contact=add_contact, add_phone=add_phone, remove_phone=remove_phone, find_phone=find_phone,
                      edit_phone=edit_phone, days=days_to_birthday, find_user=find_user, delete_user=delete_user,
                      find_info=find_info, show=show, add_birthday=add_birth, birthday_in=birthday_in, add_secondname=add_secname,
-                     edit_secondname=edit_secondname)
+                     edit_secondname=edit_secondname, file_sorter=file_sort)
 
 
 def get_handler1(x):
