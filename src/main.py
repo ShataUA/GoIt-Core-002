@@ -227,7 +227,7 @@ def birthday_in(contact):
         raise ValueError("Enter the number of days")
     number = int(contact[0])
     list_of_birthday_contacts = phone_book.birthday_in_a_given_number_of_days(number)
-    return f'{','.join(birthday for birthday in list_of_birthday_contacts)} birthday is in {number} days'
+    return f"{','.join((birthday for birthday in list_of_birthday_contacts))} birthday is in {number} days"
 
 def final():
     return 'Good bye!'

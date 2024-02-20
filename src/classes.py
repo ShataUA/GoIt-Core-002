@@ -207,6 +207,33 @@ class Record:
             if phone.value == number:
                 return phone
         return None
+    
+    def add_email(self, email):
+        self.email = Email(email)
+        return self.email
+
+    def edit_email(self, email, new_email):
+        if self.email.value != email:
+            raise ValueError
+        self.email = Email(new_email)
+
+    def find_email(self, email):
+        if self.email == email:
+            return self.name
+        return None
+
+    def add_address(self, address):
+        self.address = Address(address)
+        return self.address
+
+    def edit_address(self, new_address):
+        self.address = Address(new_address)
+        return self.address
+    
+    def find_address(self, address):
+        if self.address == address:
+            return self.name.value
+        return None
 
     def __str__(self):
         return (f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)},"
@@ -274,13 +301,24 @@ class AddressBook(UserDict):
         with open(filename, 'rb') as fh:
             return pickle.load(fh)
 
-# book =AddressBook()
-# a = Record('a', '20-02-1989')
+book =AddressBook()
+a = Record('a', '20-02-1989')
 # b = Record('b', '20-02-1987')
 # c = Record('c', '13-05-1989')
-#
-#
-# book.add_contact(a)
+a.add_email('ant@example.com')
+a.add_address('Kyiv, Centre')
+book.add_contact(a)
+print(book.find('a'))
+
+a.edit_email('ant@example.com', 'ant@google.com')
+a.add_address('Kyiv, Borschaga')
+print(book.find('a'))
+print()
+
+
+
+
+
 # book.add_contact(b)
 # book.add_contact(c)
 #
