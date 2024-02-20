@@ -315,19 +315,19 @@ class AddressBook(UserDict):
         with open(filename, 'rb') as fh:
             return pickle.load(fh)
 
-book =AddressBook()
-a = Record('a', '20-02-1989')
-# b = Record('b', '20-02-1987')
-# c = Record('c', '13-05-1989')
-a.add_email('ant@example.com')
-a.add_address('Kyiv, Centre')
-book.add_contact(a)
-print(book.find('a'))
-
-a.edit_email('ant@example.com', 'ant@google.com')
-a.add_address('Kyiv, Borschaga')
-print(book.find('a'))
-print()
+# book =AddressBook()
+# a = Record('a', '20-02-1989')
+# # b = Record('b', '20-02-1987')
+# # c = Record('c', '13-05-1989')
+# a.add_email('ant@example.com')
+# a.add_address('Kyiv, Centre')
+# book.add_contact(a)
+# print(book.find('a'))
+#
+# a.edit_email('ant@example.com', 'ant@google.com')
+# a.add_address('Kyiv, Borschaga')
+# print(book.find('a'))
+# print()
 
 
 
