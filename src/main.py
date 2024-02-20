@@ -11,17 +11,19 @@ notebook = NoteBook()
 instruction = ("Hello, I am a bot assistant for work with the phone book. \n"
                "Enter the command:\n"
                "'show all' - if you want to view the entire phone book.\n"
-               "'show N' - if want to view the phone book in the parts by N contacts. N must be digit.\n"
                "'exit', 'close' or 'good bye' - if you want to finish the work.\n"
                "'add_contact name birthday' - if you want to add a contact to the phone book,\n"
-               "for example 'add Tom_Waits 07-12-1949'. Birthday is an optional field.\n"
+               "for example 'add Tom 07-12-1949'. Birthday is an optional field.\n"
                "'add_phone name phone' - if you want to add a phone number to the contact.\n"
                "Phone must consist of 10 digits. You can add different phone numbers to the contact.\n"
                "'remove_phone name phone' - if you want to remove a phone number from the contact.\n"
                "'edit_phone name old_number new_number' - if you want to edit a phone number.\n"
                "'find_phone name number' - if yoy want to find a phone number in the contact.\n"
+               "'add_birthday name birthday' - if you want to add a birthday in the contact. \n"
                "'days name' - if you want to know how many days are left until the contact's birthday.\n"
                "'find_user name' - if you want to find a definite user in the phone book.\n"
+               "'add_secondname name' - if you want to add a secondname to the contact.\n"
+               "'edit_secondname name' - if you want to edit a secondname to the contact.\n"
                "'delete_user name' - if you want to delete a contact from the phone book.\n"
                "'find_info text' - to find users by several digits of a phone number or several letters of a name.\n"
                "'add_secondname name secondname' - if you want to add a secondname to the contact.\n"
@@ -31,6 +33,18 @@ instruction = ("Hello, I am a bot assistant for work with the phone book. \n"
                "'add_email name email' - if you want to add an email to the contact.\n"
                "'remove_email name email' - if you want to remove an email from the contact.\n"
                "'edit_email name old_email new_email' - if you want to edit an email.\n")
+               "'birthday_in number' - if you want to see users which have birthday in number days.\n"
+               "'file_sort path' - if you want to sort some directory (enter path to the directory).\n"
+               "'add_note' - if you want to create a new note.\n"
+               "'edit_note' - if you want to edit some note.\n"
+               "'delete_note_by_index' - if you want to delete a note by index.\n"
+               "'delete_note_by_title' - if you want to delete a note by title.\n"
+               "'search_note_by_tag' - if you want to seach notes by tag.\n"
+               "'sort_notes_by_tag' - if you want to sort notes by tag.\n"
+               "'notes_show_all' - if you want to see all notes.\n"
+               "'search_note_by text' - if you want to search a note by the text.\n")
+
+            
 
 
 def input_error(func):
@@ -213,7 +227,7 @@ def show(contact):
                 print(elem)
 
 @input_error
-def add_birth(contact):
+def add_birthday(contact):
     if not contact:
         raise ValueError("Enter username and birthday please")
     else:
@@ -241,7 +255,7 @@ def birthday_in(contact):
 
 
 @input_error
-def add_secname(contact):
+def add_secondname(contact):
     if not contact:
         raise ValueError("Enter username and secondname please")
     else:
@@ -431,7 +445,7 @@ def sort_notes_by_tag():
         print(note)
 
 
-def note_show_all():
+def notes_show_all():
     all_notes = notebook.show_all()
     print("All notes:")
     for note in all_notes:
@@ -458,13 +472,14 @@ command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": gree
 
 command_dict2 = dict(add_contact=add_contact, add_phone=add_phone, remove_phone=remove_phone, find_phone=find_phone,
                      edit_phone=edit_phone, days=days_to_birthday, find_user=find_user, delete_user=delete_user,
-                     find_info=find_info, show=show, add_birthday=add_birth, birthday_in=birthday_in, add_secondname=add_secname,
+                     find_info=find_info, show=show, add_birthday=add_birthday, birthday_in=birthday_in, add_secondname=add_secondname,
                      edit_secondname=edit_secondname, file_sorter=file_sort, add_note=add_note, edit_note=edit_note,
                      delete_note_by_idx=delete_note_by_index, delete_note_by_title=delete_note_by_title,
                      search_note_by_tag=search_note_by_tag, sort_notes_by_tag=sort_notes_by_tag,
                      search_note_by=search_note_by, notes_show_all=note_show_all, add_address=add_address,
                      edit_address = edit_address, remove_address=remove_address, add_email=add_email,
                      edit_email = edit_email, remove_email=remove_email)
+
 
 
 def get_handler1(x):
