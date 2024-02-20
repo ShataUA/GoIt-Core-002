@@ -1,4 +1,7 @@
 from classes import Record, AddressBook
+from colorama import *
+
+init(autoreset=True)
 
 phone_book = AddressBook()
 
@@ -34,6 +37,7 @@ def input_error(func):
             return Error
         except AttributeError as Error:
             return Error
+
     return inner
 
 
@@ -183,7 +187,8 @@ def find_info(info):
 def show_all():
     if not phone_book.data:
         return "No users available"
-    return "\n".join(str(record) for record in phone_book.data.values())
+    return Fore.CYAN + "\n".join(str(record) for record in phone_book.data.values())
+
 
 @input_error
 def show(contact):
@@ -225,6 +230,7 @@ def birthday_in(contact):
     list_of_birthday_contacts = phone_book.birthday_in_a_given_number_of_days(number)
     return f'{','.join(birthday for birthday in list_of_birthday_contacts)} birthday is in {number} days'
 
+
 @input_error
 def add_secname(contact):
     if not contact:
@@ -243,12 +249,14 @@ def add_secname(contact):
             except ValueError:
                 raise ValueError("Invalid secondname")
 
+
+
 def final():
     return 'Good bye!'
 
 
 def greeting():
-    return instruction
+    return Fore.YELLOW + instruction
 
 
 command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": greeting, "show all": show_all}
