@@ -2,6 +2,7 @@ from collections import UserDict, UserList
 import pickle
 import os
 
+
 class Note(UserDict):
     def __init__(self, title: str, text: str, tags: str):
         super().__init__({'title': title, 'text': text, 'tags': tags})
