@@ -244,7 +244,7 @@ class Record:
 
     def edit_secondname(self, new_secondname):
         if self.secondname.value == new_secondname:
-            raise ValueError ("Secondname already exists")
+            raise ValueError
         self.secondname = SecondName(new_secondname)
         return self.secondname
 

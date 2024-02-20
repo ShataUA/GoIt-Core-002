@@ -250,6 +250,7 @@ def add_secname(contact):
                 raise ValueError("Invalid secondname")
 
 
+@input_error
 def edit_secondname(contact):
     if not contact:
         raise ValueError("Enter username and secondname please")
