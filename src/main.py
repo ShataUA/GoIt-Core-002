@@ -24,7 +24,13 @@ instruction = ("Hello, I am a bot assistant for work with the phone book. \n"
                "'find_user name' - if you want to find a definite user in the phone book.\n"
                "'delete_user name' - if you want to delete a contact from the phone book.\n"
                "'find_info text' - to find users by several digits of a phone number or several letters of a name.\n"
-               "'add_secondname name secondname' - if you want to add a secondname to the contact.\n")
+               "'add_secondname name secondname' - if you want to add a secondname to the contact.\n"
+               "'add_address name address' - if you want to add address to the contact.\n"
+               "'remove_address name address' - if you want to remove address from the contact.\n"
+               "'edit_address name address' - if you want to edit address.\n"
+               "'add_email name email' - if you want to add an email to the contact.\n"
+               "'remove_email name email' - if you want to remove an email from the contact.\n"
+               "'edit_email name old_email new_email' - if you want to edit an email.\n")
 
 
 def input_error(func):
@@ -270,6 +276,105 @@ def edit_secondname(contact):
                 return f'Secondname {secondname.capitalize()} has been edited to contact {name}'
             except ValueError:
                 raise ValueError("Invalid secondname")
+            
+@input_error
+def add_address(contact):
+    if not contact:
+        raise ValueError("Enter address please")
+    else:
+        name = contact[0].capitalize()
+        if phone_book.get(name) is None:
+            raise KeyError("No such user in phone book")
+        elif len(contact) == 1:
+            raise IndexError("Enter address please")
+        else:
+            address =  ' '.join(contact[1:])
+            phone_book.get(name).add_address(address.capitalize())
+            return f'Address {address} has been added to contact {name}'
+
+
+
+@input_error
+def remove_address(contact):
+    if not contact:
+        raise ValueError("Enter address please")
+    else:
+        name = contact[0].capitalize()
+        if phone_book.get(name) is None:
+            raise KeyError("No such user in phone book")
+        elif len(contact) == 1:
+            raise IndexError("Enter address please")
+        else:
+            phone_book.get(name).remove_address()
+            return f'Address has been removed from contact {name}'
+
+
+
+@input_error
+def edit_address(contact):
+    if not contact:
+        raise ValueError("Enter username please")
+    else:
+        name = contact[0].capitalize()
+        if phone_book.get(name) is None:
+            raise KeyError("No such user in phone book")
+        else:
+            new_address = ' '.join(contact[1:])
+            phone_book.get(name).edit_address(new_address.capitalize())
+            return f'Address has been changed to {new_address} for contact {name}'
+        
+
+@input_error
+def add_email(contact):
+    if not contact:
+        raise ValueError("Enter username please")
+    else:
+        name = contact[0].capitalize()
+        if phone_book.get(name) is None:
+            raise KeyError("No such user in phone book")
+        elif len(contact) == 1:
+            raise IndexError("Enter email please")
+        else:
+            try:
+                email = contact[1]
+                phone_book.get(name).add_email(email)
+                return f'Email {email} has been added to contact {name}'
+            except ValueError:
+                raise ValueError("Invalid email")
+
+
+@input_error
+def remove_email(contact):
+    if not contact:
+        raise ValueError("Enter username please")
+    else:
+        name = contact[0].capitalize()
+        if phone_book.get(name) is None:
+            raise KeyError("No such user in phone book")
+        else:
+            phone_book.get(name).remove_email()
+            return f'Email has been removed from contact {name}'
+
+
+@input_error
+def edit_email(contact):
+    if not contact:
+        raise ValueError("Enter username please")
+    else:
+        name = contact[0].capitalize()
+        if phone_book.get(name) is None:
+            raise KeyError("No such user in phone book")
+        elif len(contact) < 3:
+            raise IndexError("Enter two emails please")
+        else:
+            try:
+                old_email = contact[1]
+                new_email = contact[2]
+                phone_book.get(name).edit_email(old_email, new_email)
+                return f'Email {old_email} has been changed to {new_email} for contact {name}'
+            except ValueError:
+                raise ValueError("Invalid or non-existent email")
+
 
 
 def file_sort(contact):
@@ -357,7 +462,9 @@ command_dict2 = dict(add_contact=add_contact, add_phone=add_phone, remove_phone=
                      edit_secondname=edit_secondname, file_sorter=file_sort, add_note=add_note, edit_note=edit_note,
                      delete_note_by_idx=delete_note_by_index, delete_note_by_title=delete_note_by_title,
                      search_note_by_tag=search_note_by_tag, sort_notes_by_tag=sort_notes_by_tag,
-                     search_note_by=search_note_by, notes_show_all=note_show_all)
+                     search_note_by=search_note_by, notes_show_all=note_show_all, add_address=add_address,
+                     edit_address = edit_address, remove_address=remove_address, add_email=add_email,
+                     edit_email = edit_email, remove_email=remove_email)
 
 
 def get_handler1(x):
