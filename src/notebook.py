@@ -63,14 +63,15 @@ class NoteBook(UserList):
         return sorted(self.data, key=lambda note: note.data['tags'])
 
     def show_all(self):
-        for note in self.data:
-            print(note)
+        return [note for note in self.data]
 
 
 if __name__ == '__main__':
 
     from colorama import init
+
     init()
+
 
     class TextStyle:
         RESET = '\033[0m'
@@ -96,11 +97,20 @@ if __name__ == '__main__':
         BG_CYAN = '\033[46m'
         BG_WHITE = '\033[47m'
 
+
     def print_colorful_test_title(text):
-        print(TextStyle.BOLD + TextStyle.MAGENTA + '{:^50}'.format(text), end=TextStyle.RESET + '\n\n')
-    
+        print(TextStyle.BOLD + TextStyle.CYAN + '{:^50}'.format(text), end=TextStyle.RESET + '\n\n')
+
+
+    def print_colorful_note(note):
+        print(TextStyle.BLUE + 'Title: ' + TextStyle.RESET + note.data["title"] + '\n' +
+              TextStyle.MAGENTA + 'Tags: ' + TextStyle.RESET + note.data["tags"] + TextStyle.RESET + '\n' +
+              TextStyle.YELLOW + 'Text: ' + TextStyle.RESET + note.data["text"], end='\n\n')
+
+
     def print_colorful_delimiter():
         print(TextStyle.GREEN + f'{"=" * 50}', end=TextStyle.RESET + '\n\n')
+
 
     notebook = NoteBook()
 
@@ -119,7 +129,9 @@ if __name__ == '__main__':
     # show all notes
     print_colorful_delimiter()
     print_colorful_test_title('Show all notes')
-    notebook.show_all()
+    all_notes = notebook.show_all()
+    for n in all_notes:
+        print_colorful_note(n)
 
     # edit note
     print_colorful_delimiter()
@@ -128,33 +140,39 @@ if __name__ == '__main__':
                        'Edited note text text',
                        'tag3 edited')
     print_colorful_test_title('Edited notes')
-    notebook.show_all()
+    all_notes = notebook.show_all()
+    for n in all_notes:
+        print_colorful_note(n)
 
     # search note by word
     print_colorful_delimiter()
     print_colorful_test_title('Full search notes by word "grape"')
     search_results = notebook.search_full('grape')
     for n in search_results:
-        print(n)
+        print_colorful_note(n)
 
     # search note by tag
     print_colorful_delimiter()
     print_colorful_test_title('Search notes by tag "python"')
     search_results = notebook.search_by_tag('python')
     for n in search_results:
-        print(n)
+        print_colorful_note(n)
 
     # delete note by index
     print_colorful_delimiter()
     print_colorful_test_title('Delete note with index 0')
     notebook.delete_note_by_index(0)
-    notebook.show_all()
+    all_notes = notebook.show_all()
+    for n in all_notes:
+        print_colorful_note(n)
 
     # delete note by word match in title
     print_colorful_delimiter()
     print_colorful_test_title('Delete note by word "#4" match in title')
     notebook.delete_note_by_title('#4')
-    notebook.show_all()
+    all_notes = notebook.show_all()
+    for n in all_notes:
+        print_colorful_note(n)
 
     # saving note data to file
     print_colorful_delimiter()
@@ -168,7 +186,9 @@ if __name__ == '__main__':
     # loading note data from file
     print_colorful_test_title('Load note data to file')
     notebook.read_from_file()
-    notebook.show_all()
+    all_notes = notebook.show_all()
+    for n in all_notes:
+        print_colorful_note(n)
 
     # add several notes for test sorting
     print_colorful_delimiter()
@@ -178,7 +198,9 @@ if __name__ == '__main__':
 
     # show all notes before sorting
     print_colorful_test_title('Show all notes BEFORE sorting')
-    notebook.show_all()
+    all_notes = notebook.show_all()
+    for n in all_notes:
+        print_colorful_note(n)
 
     # sorting notes by tag
     print_colorful_delimiter()
@@ -188,4 +210,4 @@ if __name__ == '__main__':
     # show notes after sorting
     print_colorful_test_title('Show all notes AFTER sorting')
     for n in sorted_notes:
-        print(n)
+        print_colorful_note(n)
