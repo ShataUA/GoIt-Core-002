@@ -430,6 +430,13 @@ def delete_note_by_title():
     return "Note deleted successfully"
 
 
+def add_note_tags():
+    index = int(input("Enter index of the note you want to delete: "))
+    tags = input("Enter tags to add: ")
+    notebook.add_note_tags(index, tags)
+    return "Note deleted successfully"
+
+
 def search_note_by_tag():
     tag = input("Enter tag to search notes: ")
     search_results = notebook.search_by_tag(tag)
@@ -448,8 +455,8 @@ def sort_notes_by_tag():
 def notes_show_all():
     all_notes = notebook.show_all()
     print("All notes:")
-    for note in all_notes:
-        print(note)
+    for index, note in enumerate(all_notes):
+        print(index, note)
 
 
 def search_note_by():
@@ -473,7 +480,7 @@ command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": gree
 command_dict2 = dict(add_contact=add_contact, add_phone=add_phone, remove_phone=remove_phone, find_phone=find_phone,
                      edit_phone=edit_phone, days=days_to_birthday, find_user=find_user, delete_user=delete_user,
                      find_info=find_info, show=show, add_birthday=add_birthday, birthday_in=birthday_in, add_secondname=add_secondname,
-                     edit_secondname=edit_secondname, file_sorter=file_sort, add_note=add_note, edit_note=edit_note,
+                     edit_secondname=edit_secondname, file_sorter=file_sort, add_note=add_note, edit_note=edit_note, add_note_tags=add_note_tags,
                      delete_note_by_idx=delete_note_by_index, delete_note_by_title=delete_note_by_title,
                      search_note_by_tag=search_note_by_tag, sort_notes_by_tag=sort_notes_by_tag,
                      search_note_by=search_note_by, notes_show_all=notes_show_all, add_address=add_address,
