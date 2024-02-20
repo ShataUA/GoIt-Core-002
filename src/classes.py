@@ -218,6 +218,10 @@ class Record:
             raise ValueError
         self.email = Email(new_email)
 
+    def remove_email(self):
+        self.email = Email(None)
+        return self.email
+
     def find_email(self, email):
         if self.email == email:
             return self.name
@@ -229,6 +233,10 @@ class Record:
 
     def edit_address(self, new_address):
         self.address = Address(new_address)
+        return self.address
+    
+    def remove_address(self):
+        self.address = Address(None)
         return self.address
     
     def find_address(self, address):
