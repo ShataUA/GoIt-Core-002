@@ -149,12 +149,13 @@ class Email(Field):
         
 
 class Record:
-    def __init__(self, name, birthday=None, address=None, email=None):
+    def __init__(self, name, birthday=None, address=None, email=None, secondname=None):
         self.name = FirstName(name)
         self.phones = []
         self.birthday = Birthday(birthday)
         self.email = Email(email)
         self.address = Address(address)
+        self.secondname = SecondName(secondname)
 
     @property
     def days_to_birthday(self):
@@ -235,8 +236,14 @@ class Record:
             return self.name.value
         return None
 
+    def add_secondname(self, secondname):
+        if self.secondname.value is None:
+            self.secondname = SecondName(secondname)
+        else:
+            raise ValueError
+
     def __str__(self):
-        return (f"Contact name: {self.name.value}, phones: {'; '.join(p.value for p in self.phones)},"
+        return (f"Contact name: {self.name.value}, second name: {self.secondname.value}, phones: {'; '.join(p.value for p in self.phones)},"
                 f" birthday: {self.birthday.value}, email: {self.email.value}, address: {self.address.value}")
 
 

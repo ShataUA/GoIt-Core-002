@@ -20,7 +20,8 @@ instruction = ("Hello, I am a bot assistant for work with the phone book. \n"
                "'days name' - if you want to know how many days are left until the contact's birthday.\n"
                "'find_user name' - if you want to find a definite user in the phone book.\n"
                "'delete_user name' - if you want to delete a contact from the phone book.\n"
-               "'find_info text' - to find users by several digits of a phone number or several letters of a name.\n")
+               "'find_info text' - to find users by several digits of a phone number or several letters of a name.\n"
+               "'add_secondname name secondname' - if you want to add a secondname to the contact.\n")
 
 
 def input_error(func):
@@ -229,6 +230,27 @@ def birthday_in(contact):
     list_of_birthday_contacts = phone_book.birthday_in_a_given_number_of_days(number)
     return f"{','.join((birthday for birthday in list_of_birthday_contacts))} birthday is in {number} days"
 
+
+@input_error
+def add_secname(contact):
+    if not contact:
+        raise ValueError("Enter username and secondname please")
+    else:
+        name = contact[0].capitalize()
+        if phone_book.get(name) is None:
+            raise KeyError("No such user in phone book")
+        elif len(contact) == 1:
+            raise IndexError("Enter secondname please")
+        else:
+            try:
+                secondname = contact[1]
+                phone_book.get(name).add_secondname(secondname.capitalize())
+                return f'Secondname {secondname.capitalize()} has been added to contact {name}'
+            except ValueError:
+                raise ValueError("Invalid secondname")
+
+
+
 def final():
     return 'Good bye!'
 
@@ -241,7 +263,7 @@ command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": gree
 
 command_dict2 = dict(add_contact=add_contact, add_phone=add_phone, remove_phone=remove_phone, find_phone=find_phone,
                      edit_phone=edit_phone, days=days_to_birthday, find_user=find_user, delete_user=delete_user,
-                     find_info=find_info, show=show, add_birthday=add_birth, birthday_in=birthday_in)
+                     find_info=find_info, show=show, add_birthday=add_birth, birthday_in=birthday_in, add_secondname=add_secname)
 
 
 def get_handler1(x):
