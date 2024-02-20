@@ -39,7 +39,7 @@ instruction = ("Hello, I am a bot assistant for work with the phone book. \n"
                "'edit_note' - if you want to edit some note.\n"
                "'delete_note_by_index' - if you want to delete a note by index.\n"
                "'delete_note_by_title' - if you want to delete a note by title.\n"
-               "'search_note_by_tag' - if you want to seach notes by tag.\n"
+               "'search_note_by_tag' - if you want to search notes by tag.\n"
                "'sort_notes_by_tag' - if you want to sort notes by tag.\n"
                "'notes_show_all' - if you want to see all notes.\n"
                "'search_note_by text' - if you want to search a note by the text.\n")
