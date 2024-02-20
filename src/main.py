@@ -250,6 +250,24 @@ def add_secname(contact):
                 raise ValueError("Invalid secondname")
 
 
+def edit_secondname(contact):
+    if not contact:
+        raise ValueError("Enter username and secondname please")
+    else:
+        name = contact[0].capitalize()
+        if phone_book.get(name) is None:
+            raise KeyError("No such user in phone book")
+        elif len(contact) == 1:
+            raise IndexError("Enter secondname please")
+        else:
+            try:
+                secondname = contact[1]
+                phone_book.get(name).edit_secondname(secondname.capitalize())
+                return f'Secondname {secondname.capitalize()} has been edited to contact {name}'
+            except ValueError:
+                raise ValueError("Invalid secondname")
+
+
 
 def final():
     return 'Good bye!'
@@ -263,7 +281,8 @@ command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": gree
 
 command_dict2 = dict(add_contact=add_contact, add_phone=add_phone, remove_phone=remove_phone, find_phone=find_phone,
                      edit_phone=edit_phone, days=days_to_birthday, find_user=find_user, delete_user=delete_user,
-                     find_info=find_info, show=show, add_birthday=add_birth, birthday_in=birthday_in, add_secondname=add_secname)
+                     find_info=find_info, show=show, add_birthday=add_birth, birthday_in=birthday_in, add_secondname=add_secname,
+                     edit_secondname=edit_secondname)
 
 
 def get_handler1(x):

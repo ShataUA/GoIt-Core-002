@@ -242,6 +242,13 @@ class Record:
         else:
             raise ValueError
 
+    def edit_secondname(self, new_secondname):
+        if self.secondname.value == new_secondname:
+            raise ValueError ("Secondname already exists")
+        self.secondname = SecondName(new_secondname)
+        return self.secondname
+
+
     def __str__(self):
         return (f"Contact name: {self.name.value}, second name: {self.secondname.value}, phones: {'; '.join(p.value for p in self.phones)},"
                 f" birthday: {self.birthday.value}, email: {self.email.value}, address: {self.address.value}")
