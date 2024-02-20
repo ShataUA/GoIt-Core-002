@@ -1,10 +1,12 @@
 from classes import Record, AddressBook
 from colorama import *
 from file_sorter import FileSorter
+from notebook import NoteBook
 
 init(autoreset=True)
 
 phone_book = AddressBook()
+notebook = NoteBook()
 
 instruction = ("Hello, I am a bot assistant for work with the phone book. \n"
                "Enter the command:\n"
@@ -280,6 +282,65 @@ def file_sort(contact):
         return f'ok: {ok}\nmsg: {msg}\n{"-" * 10}'
 
 
+def add_note():
+    title = input("Enter note title: ")
+    text = input("Enter note text: ")
+    tags = input("Enter note tags: ")
+    notebook.add_note(title, text, tags)
+    return f"Note {title} added successfully"
+
+
+def edit_note():
+    index = int(input("Enter index of the note you want to edit: "))
+    new_title = input("Enter new title: ")
+    new_text = input("Enter new text: ")
+    new_tags = input("Enter new tags: ")
+    notebook.edit_note(index, new_title, new_text, new_tags)
+    return "Note edited successfully"
+
+
+def delete_note_by_index():
+    index = int(input("Enter index of the note you want to delete: "))
+    notebook.delete_note_by_index(index)
+    return "Note deleted successfully"
+
+
+def delete_note_by_title():
+    title = input("Enter title of the note you want to delete: ")
+    notebook.delete_note_by_title(title)
+    return "Note deleted successfully"
+
+
+def search_note_by_tag():
+    tag = input("Enter tag to search notes: ")
+    search_results = notebook.search_by_tag(tag)
+    print("Search results:")
+    for note in search_results:
+        print(note)
+
+
+def sort_notes_by_tag():
+    sorted_notes = notebook.sort_notes_by_tag()
+    print("Sorted notes:")
+    for note in sorted_notes:
+        print(note)
+
+
+def note_show_all():
+    all_notes = notebook.show_all()
+    print("All notes:")
+    for note in all_notes:
+        print(note)
+
+
+def search_note_by():
+    qwerty = input("Enter what u want to search for: ")
+    result = notebook.search_full(qwerty)
+    print("Search results:")
+    for note in result:
+        print(note)
+
+
 def final():
     return 'Good bye!'
 
@@ -293,7 +354,10 @@ command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": gree
 command_dict2 = dict(add_contact=add_contact, add_phone=add_phone, remove_phone=remove_phone, find_phone=find_phone,
                      edit_phone=edit_phone, days=days_to_birthday, find_user=find_user, delete_user=delete_user,
                      find_info=find_info, show=show, add_birthday=add_birth, birthday_in=birthday_in, add_secondname=add_secname,
-                     edit_secondname=edit_secondname, file_sorter=file_sort)
+                     edit_secondname=edit_secondname, file_sorter=file_sort, add_note=add_note, edit_note=edit_note,
+                     delete_note_by_idx=delete_note_by_index, delete_note_by_title=delete_note_by_title,
+                     search_note_by_tag=search_note_by_tag, sort_notes_by_tag=sort_notes_by_tag,
+                     search_note_by=search_note_by, notes_show_all=note_show_all)
 
 
 def get_handler1(x):
@@ -306,10 +370,13 @@ def get_handler2(x):
 
 def main():
     global phone_book
+    global notebook
     try:
         phone_book = phone_book.read_from_file(filename='phone_book.bin')
     except FileNotFoundError:
         phone_book = AddressBook()
+    notebook = NoteBook()
+    notebook.read_from_file()
     while True:
         command = input().lower().strip()
 
@@ -318,13 +385,18 @@ def main():
             print(result)
             if result == "Good bye!":
                 phone_book.save_to_file(filename='phone_book.bin')
+                notebook.save_to_file()
                 break
         else:
             command = command.split(" ")
             contact = command[1:]
 
-            if command[0] in command_dict2:
+            if command[0] in command_dict2 and contact:
                 result = get_handler2(command[0])(contact)
+                if result is not None:
+                    print(result)
+            elif command[0] in command_dict2 and not contact:
+                result = get_handler2(command[0])()
                 if result is not None:
                     print(result)
             else:
