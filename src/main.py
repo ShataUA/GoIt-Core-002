@@ -431,10 +431,10 @@ def delete_note_by_title():
 
 
 def add_note_tags():
-    index = int(input("Enter index of the note you want to delete: "))
+    index = int(input("Enter index of the note you want to add tag: "))
     tags = input("Enter tags to add: ")
     notebook.add_note_tags(index, tags)
-    return "Note deleted successfully"
+    return "Tag added successfully"
 
 
 def search_note_by_tag():
