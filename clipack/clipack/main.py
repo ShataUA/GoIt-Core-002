@@ -1,7 +1,7 @@
-from classes import Record, AddressBook
+from clipack.classes import Record, AddressBook
 from colorama import *
-from file_sorter import FileSorter
-from notebook import NoteBook
+from clipack.file_sorter import FileSorter
+from clipack.notebook import NoteBook
 
 init(autoreset=True)
 
