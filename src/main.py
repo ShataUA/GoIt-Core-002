@@ -60,6 +60,8 @@ def input_error(func):
             return Error
         except AttributeError as Error:
             return Error
+        except TypeError as Error:
+            return Error
 
     return inner
 
@@ -390,7 +392,7 @@ def edit_email(contact):
                 raise ValueError("Invalid or non-existent email")
 
 
-
+@input_error
 def file_sort(contact):
     if not contact:
         raise ValueError("Enter directory path")
@@ -400,7 +402,7 @@ def file_sort(contact):
         ok, msg = file_sorter.execute_sort()
         return f'ok: {ok}\nmsg: {msg}\n{"-" * 10}'
 
-
+@input_error
 def add_note():
     title = input("Enter note title: ")
     text = input("Enter note text: ")
@@ -409,6 +411,7 @@ def add_note():
     return f"Note {title} added successfully"
 
 
+@input_error
 def edit_note():
     index = int(input("Enter index of the note you want to edit: "))
     new_title = input("Enter new title: ")
@@ -417,26 +420,26 @@ def edit_note():
     notebook.edit_note(index, new_title, new_text, new_tags)
     return "Note edited successfully"
 
-
+@input_error
 def delete_note_by_index():
     index = int(input("Enter index of the note you want to delete: "))
     notebook.delete_note_by_index(index)
     return "Note deleted successfully"
 
-
+@input_error
 def delete_note_by_title():
     title = input("Enter title of the note you want to delete: ")
     notebook.delete_note_by_title(title)
     return "Note deleted successfully"
 
-
+@input_error
 def add_note_tags():
     index = int(input("Enter index of the note you want to delete: "))
     tags = input("Enter tags to add: ")
     notebook.add_note_tags(index, tags)
     return "Note deleted successfully"
 
-
+@input_error
 def search_note_by_tag():
     tag = input("Enter tag to search notes: ")
     search_results = notebook.search_by_tag(tag)
@@ -444,21 +447,21 @@ def search_note_by_tag():
     for note in search_results:
         print(note)
 
-
+@input_error
 def sort_notes_by_tag():
     sorted_notes = notebook.sort_notes_by_tag()
     print("Sorted notes:")
     for note in sorted_notes:
         print(note)
 
-
+@input_error
 def notes_show_all():
     all_notes = notebook.show_all()
     print("All notes:")
     for index, note in enumerate(all_notes):
         print(index, note)
 
-
+@input_error
 def search_note_by():
     qwerty = input("Enter what u want to search for: ")
     result = notebook.search_full(qwerty)
