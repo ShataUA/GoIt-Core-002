@@ -48,9 +48,9 @@ instruction = ("Hello, I am a bot assistant for work with the phone book. \n"
 
 
 def input_error(func):
-    def inner(x):
+    def inner(*args, **kwargs):
         try:
-            result = func(x)
+            result = func(*args, **kwargs)
             return result
         except IndexError as Error:
             return Error
@@ -60,6 +60,8 @@ def input_error(func):
             return Error
         except AttributeError as Error:
             return Error
+        except TypeError:
+            return "Wrong command"
 
     return inner
 
