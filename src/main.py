@@ -475,15 +475,15 @@ def greeting():
     return Fore.YELLOW + instruction
 
 
-command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": greeting, "show all": show_all}
+command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": greeting, "show all": show_all, 'add_note': add_note, 'edit_note': edit_note, 'add_note_tags': add_note_tags,
+                'delete_note_by_idx': delete_note_by_index, 'delete_note_by_title': delete_note_by_title,
+                'search_note_by_tag': search_note_by_tag, 'sort_notes_by_tag': sort_notes_by_tag,
+                'search_note_by': search_note_by, 'notes_show_all': notes_show_all}
 
 command_dict2 = dict(add_contact=add_contact, add_phone=add_phone, remove_phone=remove_phone, find_phone=find_phone,
                      edit_phone=edit_phone, days=days_to_birthday, find_user=find_user, delete_user=delete_user,
                      find_info=find_info, show=show, add_birthday=add_birthday, birthday_in=birthday_in, add_secondname=add_secondname,
-                     edit_secondname=edit_secondname, file_sorter=file_sort, add_note=add_note, edit_note=edit_note, add_note_tags=add_note_tags,
-                     delete_note_by_idx=delete_note_by_index, delete_note_by_title=delete_note_by_title,
-                     search_note_by_tag=search_note_by_tag, sort_notes_by_tag=sort_notes_by_tag,
-                     search_note_by=search_note_by, notes_show_all=notes_show_all, add_address=add_address,
+                     edit_secondname=edit_secondname, file_sorter=file_sort, add_address=add_address,
                      edit_address = edit_address, remove_address=remove_address, add_email=add_email,
                      edit_email = edit_email, remove_email=remove_email)
 
@@ -511,7 +511,8 @@ def main():
 
         if command in command_dict1:
             result = get_handler1(command)()
-            print(result)
+            if result is not None:
+                print(result)
             if result == "Good bye!":
                 phone_book.save_to_file(filename='phone_book.bin')
                 notebook.save_to_file()
