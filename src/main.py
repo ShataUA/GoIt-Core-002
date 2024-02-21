@@ -60,8 +60,7 @@ def input_error(func):
             return Error
         except AttributeError as Error:
             return Error
-        except TypeError as Error:
-            return Error
+
 
     return inner
 
@@ -402,7 +401,7 @@ def file_sort(contact):
         ok, msg = file_sorter.execute_sort()
         return f'ok: {ok}\nmsg: {msg}\n{"-" * 10}'
 
-@input_error
+
 def add_note():
     title = input("Enter note title: ")
     text = input("Enter note text: ")
@@ -411,7 +410,7 @@ def add_note():
     return f"Note {title} added successfully"
 
 
-@input_error
+
 def edit_note():
     index = int(input("Enter index of the note you want to edit: "))
     new_title = input("Enter new title: ")
@@ -420,26 +419,26 @@ def edit_note():
     notebook.edit_note(index, new_title, new_text, new_tags)
     return "Note edited successfully"
 
-@input_error
+
 def delete_note_by_index():
     index = int(input("Enter index of the note you want to delete: "))
     notebook.delete_note_by_index(index)
     return "Note deleted successfully"
 
-@input_error
+
 def delete_note_by_title():
     title = input("Enter title of the note you want to delete: ")
     notebook.delete_note_by_title(title)
     return "Note deleted successfully"
 
-@input_error
+
 def add_note_tags():
     index = int(input("Enter index of the note you want to delete: "))
     tags = input("Enter tags to add: ")
     notebook.add_note_tags(index, tags)
     return "Note deleted successfully"
 
-@input_error
+
 def search_note_by_tag():
     tag = input("Enter tag to search notes: ")
     search_results = notebook.search_by_tag(tag)
@@ -447,21 +446,21 @@ def search_note_by_tag():
     for note in search_results:
         print(note)
 
-@input_error
+
 def sort_notes_by_tag():
     sorted_notes = notebook.sort_notes_by_tag()
     print("Sorted notes:")
     for note in sorted_notes:
         print(note)
 
-@input_error
+
 def notes_show_all():
     all_notes = notebook.show_all()
     print("All notes:")
     for index, note in enumerate(all_notes):
         print(index, note)
 
-@input_error
+
 def search_note_by():
     qwerty = input("Enter what u want to search for: ")
     result = notebook.search_full(qwerty)
@@ -478,15 +477,15 @@ def greeting():
     return Fore.YELLOW + instruction
 
 
-command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": greeting, "show all": show_all}
+command_dict1 = {"good bye": final, "close": final, "exit": final, "hello": greeting, "show all": show_all, 'add_note': add_note, 'edit_note': edit_note, 'add_note_tags': add_note_tags,
+                'delete_note_by_idx': delete_note_by_index, 'delete_note_by_title': delete_note_by_title,
+                'search_note_by_tag': search_note_by_tag, 'sort_notes_by_tag': sort_notes_by_tag,
+                'search_note_by': search_note_by, 'notes_show_all': notes_show_all}
 
 command_dict2 = dict(add_contact=add_contact, add_phone=add_phone, remove_phone=remove_phone, find_phone=find_phone,
                      edit_phone=edit_phone, days=days_to_birthday, find_user=find_user, delete_user=delete_user,
                      find_info=find_info, show=show, add_birthday=add_birthday, birthday_in=birthday_in, add_secondname=add_secondname,
-                     edit_secondname=edit_secondname, file_sorter=file_sort, add_note=add_note, edit_note=edit_note, add_note_tags=add_note_tags,
-                     delete_note_by_idx=delete_note_by_index, delete_note_by_title=delete_note_by_title,
-                     search_note_by_tag=search_note_by_tag, sort_notes_by_tag=sort_notes_by_tag,
-                     search_note_by=search_note_by, notes_show_all=notes_show_all, add_address=add_address,
+                     edit_secondname=edit_secondname, file_sorter=file_sort, add_address=add_address,
                      edit_address = edit_address, remove_address=remove_address, add_email=add_email,
                      edit_email = edit_email, remove_email=remove_email)
 
