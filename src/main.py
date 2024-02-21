@@ -526,7 +526,7 @@ def main():
                 if result is not None:
                     print(result)
             elif command[0] in command_dict2 and not contact:
-                result = get_handler2(command[0])()
+                result = get_handler2(command[0])(contact)
                 if result is not None:
                     print(result)
             else:
